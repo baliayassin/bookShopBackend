@@ -33,7 +33,7 @@ app.use('/api/authors',authorRoutes)
 app.use('/api/cart/',cartRoutes)
 //app.use('/api/cart/insert',cartRoutes)
 app.use('/api/admin/books',booksRoutes)
-app.use('/api/book/insert',adminRoutes)
+app.use('/api/admin/',adminRoutes)
 app.use('/api/books/update',booksRoutes)
 app.use('/api/books/delete',booksRoutes)
 

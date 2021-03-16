@@ -19,8 +19,8 @@ const getBookByName = async (req,res)=> {
 
     try{
 
-       const book = await Book.findOne({name:req.params.name});
-       res.json(book);
+    //   const book = ;
+       res.json(await Book.findOne({name:req.params.name}));
 
     }catch(err){
         console.log(err)
@@ -28,58 +28,55 @@ const getBookByName = async (req,res)=> {
     }
 }
 
-/*
 const insertBook = async (req,res)=> {
 
-    var book = JSON.stringify({
+    var book = new Book({
         name: req.body.name,
         image: req.body.image,
-        price: req.body.price 
+        price: req.body.price,
         
       })
-      console.log(req.body)
-      book.save(function (err, books) {
+      book.save(function (err, book) {
         if (err) { return next(err) }
-        res.json(201, books)
+        res.json(201, book)
+      
       })
    
-
-}*/
-
-
-const insertBook = async (req,res,next)=> {
-
-    let book = new Book({
-        name: req.body.name,
-        image: req.body.image,
-        price: req.body.price 
-    })
-    book.save()
-    .then(response=>{
-        res.json({
-            book 
-        })
-    }).catch(error =>{res.json({
-        message:"an error occured"
-    })
-})
 
 }
 
 const updateBook = async (req,res)=> {
 
     var id = req.params.id;
-    Book.findOne({_id:id},(err,findObj)=>{
+
+    /*
+Book.findByIdAndUpdate({_id:id},
+    
+    {price:req.body.price},
+    function(err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(result);
+        }
+      }
+    
+ )
+*/
+
+   Book.findOne({_id:id},(err,findObj)=>{
 
       findObj.price= req.body.price
   
   findObj.save(function(err,upD){
     if (err) { return next(err) }
-    res.json(201, upD)
+    res.json(201,upD)
+    
   })
     })
+    
  
-}
+} 
 
 const deleteBook = async (req,res)=> {
     try{

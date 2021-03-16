@@ -1,5 +1,6 @@
+const { json } = require('body-parser');
 const Admin = require('../models/admin')
-const Book = require('./bookControllers')
+const Book = require('../models/book')
 
 const getAllBooks = async (req,res)=> {
 
@@ -18,10 +19,26 @@ const getAllBooks = async (req,res)=> {
 
 const insertBook = async (req,res)=> {
 
-    Book.insertBook()
+    var book = new Book({
+        name: req.body.name,
+        image: req.body.image,
+        price: req.body.price,
+        
+      })
+     
+    
+      book.save(function (err, book) {
+        if (err) { return next(err) }
+       
+       //  return res.send(201, book)
+         res.status(201).send(book)
+       //res(201)
+       //res.status(200).send(res.json(book));
+      })
+   
 }
 
-/*
+
 const getUserByEmail = async (req,res)=> {
 
     try{
@@ -35,7 +52,7 @@ const getUserByEmail = async (req,res)=> {
     }
 }
 
-*/
+
 module.exports = {
     getAllBooks,
     insertBook
